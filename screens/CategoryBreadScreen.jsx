@@ -1,4 +1,4 @@
-import { StyleSheet, View , Text,Button } from "react-native"
+import { StyleSheet, View , Text,Button,FlatList } from "react-native"
 import CATEGORIES from "../data/mock-data"
 
 const CategoryBreadScreen = ({navigation,route}) => {
