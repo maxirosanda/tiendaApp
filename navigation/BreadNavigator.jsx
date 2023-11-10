@@ -23,7 +23,7 @@ const Stack = createNativeStackNavigator()
       >
         <Stack.Screen name="Home" component={CategoriesScreen} options={{ title: 'Nuestra Panaderia' }} />
         <Stack.Screen name="BreadCategory" component={CategoryBreadScreen} options={({route}) => ({ title: route.params.name })} />
-        <Stack.Screen name="DetailBread" component={BreadDetailScreen} options={{ title: 'Detalles' }} />
+        <Stack.Screen name="DetailBread" component={BreadDetailScreen} options={({route}) => ({ title: route.params.name })} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -1,17 +1,23 @@
-import { StyleSheet, View , Text,Button,FlatList } from "react-native"
-import CATEGORIES from "../data/mock-data"
+import { StyleSheet, View ,FlatList } from "react-native"
+import { useSelector } from "react-redux"
+import BreadItem from "../components/BreadItem"
 
 const CategoryBreadScreen = ({navigation,route}) => {
 
+    const breadsState = useSelector(state => state.breads)
     const {categoryID} = route.params
-    const selectedCategory = CATEGORIES.find(cat => cat.id == categoryID)
+    const displayBreads = breadsState.filter(item => item.categoryId == categoryID)
+
+    const handlerSeleted = (bread) => {
+        navigation.navigate("DetailBread",{bread,name:bread.title})
+    }
 
     return <View style={styles.screen}>
-                <Text>{selectedCategory.title}</Text>
-                <Button
-                     title="ir a detalle"
-                     onPress={() => navigation.navigate('DetailBread')}
-                />
+              <FlatList
+                data={displayBreads}
+                keyExtractor={item =>item.id}
+                renderItem={(data)=> <BreadItem item={data.item} onSelectBread={handlerSeleted}/>}
+              />
            </View>
 }
 

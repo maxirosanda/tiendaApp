@@ -1,5 +1,22 @@
-export default  BREADS = [
-    {
-        
-    }
-]
+export default BREADS = [
+    { id: 1, categoryId: 1, title: "Baguette tradicional", price: 120, description: "Una baguette clásica y crujiente.", weight: "250g" },
+    { id: 2, categoryId: 2, title: "Pan integral de semillas", price: 130, description: "Pan saludable con una mezcla de semillas.", weight: "300g" },
+    { id: 3, categoryId: 3, title: "Bollo de centeno", price: 110, description: "Bollo esponjoso de centeno.", weight: "200g" },
+    { id: 4, categoryId: 4, title: "Pan de avena y miel", price: 140, description: "Pan dulce con avena y miel.", weight: "280g" },
+    { id: 5, categoryId: 1, title: "Ciabatta artesanal", price: 125, description: "Ciabatta de fermentación lenta.", weight: "270g" },
+    { id: 6, categoryId: 2, title: "Pan de espelta multicereal", price: 135, description: "Pan de espelta con varios cereales.", weight: "320g" },
+    { id: 7, categoryId: 3, title: "Masa madre de trigo sarraceno", price: 115, description: "Pan de masa madre con trigo sarraceno.", weight: "240g" },
+    { id: 8, categoryId: 4, title: "Pan de nueces y pasas", price: 145, description: "Pan con nueces y pasas.", weight: "290g" },
+    { id: 9, categoryId: 1, title: "Rosca de maíz y queso", price: 122, description: "Rosca con sabor a maíz y queso.", weight: "260g" },
+    { id: 10, categoryId: 2, title: "Pan de olivas negras", price: 132, description: "Pan con aceitunas negras.", weight: "310g" },
+    { id: 11, categoryId: 3, title: "Pan de centeno con ciruelas", price: 112, description: "Pan de centeno con ciruelas pasas.", weight: "230g" },
+    { id: 12, categoryId: 4, title: "Pan de molde integral", price: 142, description: "Pan de molde integral.", weight: "300g" },
+    { id: 13, categoryId: 1, title: "Bagel de salmón y alcaparras", price: 128, description: "Bagel con salmón ahumado y alcaparras.", weight: "250g" },
+    { id: 14, categoryId: 2, title: "Fougasse de hierbas provenzales", price: 138, description: "Fougasse con hierbas provenzales.", weight: "280g" },
+    { id: 15, categoryId: 3, title: "Pan de calabaza y jengibre", price: 118, description: "Pan con calabaza y toque de jengibre.", weight: "240g" },
+    { id: 16, categoryId: 4, title: "Pan de ajo y queso parmesano", price: 148, description: "Pan con ajo y queso parmesano.", weight: "310g" },
+    { id: 17, categoryId: 1, title: "Pan de cebolla caramelizada", price: 123, description: "Pan con cebolla caramelizada.", weight: "260g" },
+    { id: 18, categoryId: 2, title: "Pan de trigo y almendras", price: 133, description: "Pan con trigo y almendras.", weight: "290g" },
+    { id: 19, categoryId: 3, title: "Pan de espinacas y feta", price: 113, description: "Pan con espinacas y queso feta.", weight: "220g" },
+    { id: 20, categoryId: 4, title: "Pan de tomate seco y albahaca", price: 143, description: "Pan con tomate seco y aroma de albahaca.", weight: "280g" },
+  ];

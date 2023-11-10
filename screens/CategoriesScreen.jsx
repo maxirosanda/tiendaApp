@@ -1,9 +1,11 @@
 import { FlatList, StyleSheet } from "react-native"
-import CATEGORIES from "../data/mock-data"
+import { useSelector } from "react-redux"
 
 import CategoryGridTitle from "../components/CategoryGridTitle"
 
 const CategoriesScreen = ({navigation}) => {
+
+   const categoriesState = useSelector(state => state.categories)
 
     const handlerSelectedCategory = (item) =>{
         navigation.navigate("BreadCategory",{
@@ -13,7 +15,7 @@ const CategoriesScreen = ({navigation}) => {
     }
     return (
         <FlatList 
-            data={CATEGORIES}
+            data={categoriesState}
             keyExtractor={item => item.id}
             renderItem={ item => <CategoryGridTitle item={item.item} onSelected={handlerSelectedCategory}/>}
             numColumns={2}/>
