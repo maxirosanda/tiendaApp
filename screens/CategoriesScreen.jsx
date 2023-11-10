@@ -1,23 +1,24 @@
 import { FlatList, StyleSheet } from "react-native"
-import { useSelector } from "react-redux"
-
+import { useSelector,useDispatch } from "react-redux"
 import CategoryGridTitle from "../components/CategoryGridTitle"
+import { setSelectedCategory } from "../app/features/categorys/categorySlice"
 
 const CategoriesScreen = ({navigation}) => {
 
+    const dispatch = useDispatch()
    const categoriesState = useSelector(state => state.categories)
 
-    const handlerSelectedCategory = (item) =>{
+    const handlerSelectedCategory = (categoryId,categoryTitle) =>{
+        dispatch(setSelectedCategory({ id: categoryId }))
         navigation.navigate("BreadCategory",{
-            categoryID:item.id,
-            name:item.title
+            name:categoryTitle
         })
     }
     return (
         <FlatList 
-            data={categoriesState}
-            keyExtractor={item => item.id}
-            renderItem={ item => <CategoryGridTitle item={item.item} onSelected={handlerSelectedCategory}/>}
+            data={categoriesState.categories}
+            keyExtractor={data => data.id}
+            renderItem={ data => <CategoryGridTitle item={data.item} onSelected={handlerSelectedCategory}/>}
             numColumns={2}/>
     )
 }

@@ -1,20 +1,27 @@
+import { useEffect } from "react"
 import { StyleSheet, View ,FlatList } from "react-native"
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
 import BreadItem from "../components/BreadItem"
+import { setSelectedBread ,setFilteredBread} from "../app/features/breads/breadSlice"
 
-const CategoryBreadScreen = ({navigation,route}) => {
+const CategoryBreadScreen = ({navigation}) => {
 
-    const breadsState = useSelector(state => state.breads)
-    const {categoryID} = route.params
-    const displayBreads = breadsState.filter(item => item.categoryId == categoryID)
+    const dispatch = useDispatch()
+    const breadsState = useSelector((state) => state.breads)
+    const categoryState = useSelector(state => state.categories.selected)
 
-    const handlerSeleted = (bread) => {
-        navigation.navigate("DetailBread",{bread,name:bread.title})
+    useEffect(() => {
+        dispatch(setFilteredBread({ filterType: categoryState.id }))
+    }, [dispatch, categoryState])
+
+    const handlerSeleted = (breadId,title) => {
+        dispatch(setSelectedBread({ id: breadId }))
+        navigation.navigate("DetailBread",{name:title})
     }
 
     return <View style={styles.screen}>
               <FlatList
-                data={displayBreads}
+                data={breadsState.filteredBread}
                 keyExtractor={item =>item.id}
                 renderItem={(data)=> <BreadItem item={data.item} onSelectBread={handlerSeleted}/>}
               />

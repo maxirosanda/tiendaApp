@@ -5,10 +5,9 @@ const BreadItem = ({item,onSelectBread}) =>{
     if(Platform.OS === "android" && Platform.Version >= 21){
         TouchableCmp = TouchableNativeFeedback
     }
-
     return <View tyle={styles.breadItem}>
                 <TouchableCmp
-                    onPress={()=> onSelectBread(item)}
+                    onPress={()=> onSelectBread(item.id,item.title)}
                 >
                     <View s>
                         <View style={styles.breadRow}>

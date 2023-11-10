@@ -11,7 +11,7 @@ const CategoryGridTitle = ({item,onSelected}) => {
     return (
         <View style={styles.gridItem}>
             <TouchableCmp
-             onPress={() => onSelected(item)}>
+             onPress={() => onSelected(item.id,item.title)}>
                 <View  style={{...styles.container,...{backgroundColor:item.color}}} >
                     <Text>{item.title}</Text>
                 </View>
