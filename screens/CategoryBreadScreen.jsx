@@ -2,7 +2,8 @@ import { useEffect } from "react"
 import { StyleSheet, View ,FlatList } from "react-native"
 import { useSelector,useDispatch } from "react-redux"
 import BreadItem from "../components/BreadItem"
-import { setSelectedBread ,setFilteredBread} from "../app/features/breads/breadSlice"
+import {setSelectedBread ,setFilteredBread} from "../app/features/breads/breadSlice"
+import { fetchBreads } from "../app/features/breads/breadApi"
 
 const CategoryBreadScreen = ({navigation}) => {
 
@@ -11,8 +12,14 @@ const CategoryBreadScreen = ({navigation}) => {
     const categoryState = useSelector(state => state.categories.selected)
 
     useEffect(() => {
-        dispatch(setFilteredBread({ filterType: categoryState.id }))
-    }, [dispatch, categoryState])
+        dispatch(fetchBreads())
+      }, [dispatch])
+    
+      useEffect(() => {
+        if (breadsState.status === "succeeded" && breadsState.breads) {
+          dispatch(setFilteredBread({ filterType: categoryState.id }))
+        }
+      }, [dispatch, breadsState.status, breadsState.breads, categoryState.id])
 
     const handlerSeleted = (breadId,title) => {
         dispatch(setSelectedBread({ id: breadId }))

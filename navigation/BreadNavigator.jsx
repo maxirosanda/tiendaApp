@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CategoriesScreen from '../screens/CategoriesScreen'
 import BreadDetailScreen from '../screens/BreadDetailScreen'
 import CategoryBreadScreen from '../screens/CategoryBreadScreen'
+import CartScreen from "../screens/CartScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -10,7 +11,7 @@ const Stack = createNativeStackNavigator()
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Home'
+        initialRouteName='Cart'
         screenOptions={{
           headerStyle: {
             backgroundColor:"red"
@@ -24,6 +25,7 @@ const Stack = createNativeStackNavigator()
         <Stack.Screen name="Home" component={CategoriesScreen} options={{ title: 'Nuestra Panaderia' }} />
         <Stack.Screen name="BreadCategory" component={CategoryBreadScreen} options={({route}) => ({ title: route.params.name })} />
         <Stack.Screen name="DetailBread" component={BreadDetailScreen} options={({route}) => ({ title: route.params.name })} />
+        <Stack.Screen name="Cart" component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

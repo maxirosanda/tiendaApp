@@ -1,0 +1,15 @@
+[
+    {
+        "userId":1,
+        "products":[{"id":1,"title":"item 1 carrito","quantity":2,"price":1200},
+                    {"id":2,"title":"item 2 carrito","quantity":5,"price":300}
+                    ]
+    },
+   { 
+    "userId":2,
+    "products": [
+        {"id":3,"title":"item 1 carrito","quantity":2,"price":1200},
+        {"id":4,"title":"item 2 carrito","quantity":5,"price":300}
+    ]
+    }
+]

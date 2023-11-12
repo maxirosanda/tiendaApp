@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
-import BREADS from "../../../data/breads"
+import { fetchBreads } from "./breadApi"
+
 
 export const breadSlice = createSlice({
   name: "breads",
   initialState: {
-    breads: BREADS,
+    breads: [],
     filteredBread: [],
     selected: null,
+    status: "idle",
+    error: null,
   },
   reducers: {
     setFilteredBread: (state, action) => {
@@ -19,7 +22,21 @@ export const breadSlice = createSlice({
       state.selected = state.breads.find((item) => item.id === id) || null
     },
   },
-});
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchBreads.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBreads.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.breads = action.payload;
+      })
+      .addCase(fetchBreads.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  }
+})
 
 export const { setFilteredBread, setSelectedBread } = breadSlice.actions
 export default breadSlice.reducer
