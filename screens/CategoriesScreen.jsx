@@ -1,9 +1,10 @@
 import { useEffect } from "react"
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet,View } from "react-native"
 import { useSelector,useDispatch } from "react-redux"
 import CategoryGridTitle from "../components/CategoryGridTitle"
 import { setSelectedCategory } from "../app/features/categorys/categorySlice"
 import { fetchCategories } from "../app/features/categorys/categoryApi"
+import ShowCart from "../components/showCart"
 
 const CategoriesScreen = ({navigation}) => {
 
@@ -14,20 +15,22 @@ const CategoriesScreen = ({navigation}) => {
         dispatch(fetchCategories())
     }, [dispatch])
 
- 
+    const handlerShowCart = () => navigation.navigate("Cart")
     const handlerSelectedCategory = (categoryId,categoryTitle) =>{
         dispatch(setSelectedCategory({ id: categoryId }))
         navigation.navigate("BreadCategory",{
             name:categoryTitle
         })
     }
-    return (
-        <FlatList 
-            data={categoriesState.categories}
-            keyExtractor={data => data.id}
-            renderItem={ data => <CategoryGridTitle item={data.item} onSelected={handlerSelectedCategory}/>}
-            numColumns={2}/>
-    )
+    return <View>
+                <FlatList 
+                    data={categoriesState.categories}
+                    keyExtractor={data => data.id}
+                    renderItem={ data => <CategoryGridTitle item={data.item} onSelected={handlerSelectedCategory}/>}
+                    numColumns={2}/>
+                    <ShowCart handlerShowCart={handlerShowCart}/>
+            </View>
+    
 }
 
 const styles = StyleSheet.create({

@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Cart'
+        initialRouteName='Home'
         screenOptions={{
           headerStyle: {
             backgroundColor:"red"

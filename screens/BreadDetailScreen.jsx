@@ -1,11 +1,18 @@
-import { StyleSheet, View , Text } from "react-native"
-import { useSelector } from "react-redux"
+import { StyleSheet, View , Text, Button, TextInput } from "react-native"
+import { useSelector,useDispatch } from "react-redux"
+import {addProductToCart} from "../app/features/cart/cartApi"
+import { useState } from "react"
 
-const BreadDetailScreen = () => {
-
+const BreadDetailScreen = ({navigation}) => {
+    const [quantity,setQuantity] = useState("1")
+    const dispatch = useDispatch()
     const breadState = useSelector((state) => state.breads.selected)
 
-    console.log(breadState)
+    const handlerAddProducts = (userId = 2,product) => {
+        dispatch(addProductToCart({ userId: userId, product: product }));
+        navigation.navigate("Cart")
+    }
+   
     return  <View style={styles.screen}>
                 <View>
                     <Text style={styles.title}>{breadState.title}</Text>
@@ -14,8 +21,12 @@ const BreadDetailScreen = () => {
                     <Text style={styles.description}>{breadState.description}</Text>
                 </View>
                 <View>
-                    <Text style={styles.price}>{breadState.price}</Text>
+                    <Text style={styles.price} >{breadState.price}</Text>
                 </View>   
+                <View>
+                    <TextInput placeholder="ingrese cantidad" onChangeText={(value)=>setQuantity(value)} value={quantity} />
+                   <Button title="Carrito" onPress={()=> handlerAddProducts(2,{...breadState,...{quantity:parseInt(quantity)}})}/>
+                </View>  
             </View>
 }
 

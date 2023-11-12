@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchCart,removeProductFromCart } from "./cartApi"
+import { fetchCart,removeProductFromCart ,addProductToCart } from "./cartApi"
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -18,7 +18,10 @@ export const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.cart = action.payload;
-        state.total = state.cart.products.reduce((acc, item) => acc + item.price, 0);
+        if(state.cart.products){
+          state.total = state.cart.products.reduce((acc, item) => acc + item.price, 0);
+        }
+       
 
       })
       .addCase(fetchCart.rejected, (state, action) => {
@@ -27,9 +30,15 @@ export const cartSlice = createSlice({
       })
       .addCase(removeProductFromCart.fulfilled, (state, action) => {
         state.status = "succeeded";
+
         state.cart = action.payload;
         state.total = state.cart.products.reduce((acc, item) => acc + item.price, 0);
       })
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.cart = action.payload;
+        state.total = state.cart.products.reduce((acc, item) => acc + item.price, 0);
+      });
   }
 })
 export const { addProduct, removeProduct } = cartSlice.actions;
