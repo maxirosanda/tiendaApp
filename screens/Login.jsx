@@ -1,9 +1,43 @@
 import {Pressable, StyleSheet, Text, View, Button} from "react-native"
 import InputForm from "../components/InputForm"
+import {useLoginMutation} from "../app/features/Auth/authSlice"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setUser } from "../app/features/Auth/authSlice"
+import { loginSchema } from "../validations/loginSchema"
+
 const Login = ({navigation}) =>{
+    const dispatch = useDispatch()
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const [login] = useLoginMutation()
+    const [errorEmail,setErrorEmail] = useState("")
+    const [errorPassword,setErrorPassword] = useState("")
 
-    const onSubmit = () => {
-
+    const onSubmit = async () => {
+        try {
+            const validation = loginSchema.validateSync({email,password})
+            const user = await login({
+                email,
+                password,
+              })
+            dispatch(setUser({email:user.data.email,token:user.data.idToken}))
+        } catch (err) {
+            //console.log("Catch error")
+            //console.log(err.path)
+            //console.log(err.message)
+            switch(err.path){
+                case "email":
+                    setErrorEmail(err.message)
+                    break
+                case "password":
+                    setErrorPassword(err.message)
+                    break
+                default:
+                    break
+                
+            }
+        }
     }
 
     return <View style={styles.main}>
@@ -11,13 +45,13 @@ const Login = ({navigation}) =>{
                     <Text style={styles.title}>Login to start</Text>
                     <InputForm
                         label={"email"}
-                        onChange={()=>{}}
-                        error = {""}
+                        onChange={(text)=>{setEmail(text)}}
+                        error = {errorEmail}
                     />
                        <InputForm
                         label={"password"}
-                        onChange={()=>{}}
-                        error = {""}
+                        onChange={(text)=>{setPassword(text)}}
+                        error = {errorPassword}
                         isSecure={true}
                     />
                     <Button

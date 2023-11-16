@@ -1,20 +1,51 @@
 import {Pressable, StyleSheet, Text, View,Button} from "react-native"
 import InputForm from "../components/InputForm"
-import { useSignUpMutation } from "../app/features/auth/authSlice"
+import { useSignUpMutation } from "../app/features/Auth/authSlice"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import {setUser} from "../app/features/Auth/authSlice"
+import { signupSchema } from "../validations/signupSchema"
 
 const Sigup = ({navigation}) =>{
-
+    const dispatch = useDispatch()
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [confirmPassword,setConfirmPassword]= useState("")
     const [signUp] = useSignUpMutation();
+    const [errorEmail,setErrorEmail] = useState("")
+    const [errorPassword,setErrorPassword] = useState("")
+    const [errorConfirmPassword,setErrorConfirmPassword] = useState("")
 
-    const onSubmit =() => {
-        signUp({
-            email,
-            password,
-          })
+    const onSubmit = async () => {
+
+        try {
+            const validation = signupSchema.validateSync({email,password,confirmPassword})
+            const user = await signUp({
+                email,
+                password,
+              })
+            
+            dispatch(setUser({email:user.data.email,token:user.data.idToken}))
+        } catch (err) {
+            //console.log("Catch error")
+            //console.log(err.path)
+            //console.log(err.message)
+            switch(err.path){
+                case "email":
+                    setErrorEmail(err.message)
+                    break
+                case "password":
+                    setErrorPassword(err.message)
+                    break
+                case "confirmPassword":
+                    setErrorConfirmPassword(err.message)
+                    break
+                default:
+                    break
+                
+            }
+        }
+       
       }
 
     return <View style={styles.main}>
@@ -23,18 +54,18 @@ const Sigup = ({navigation}) =>{
                     <InputForm
                         label={"email"}
                         onChange={(text)=>{setEmail(text)}}
-                        error = {""}
+                        error = {errorEmail}
                     />
                        <InputForm
                         label={"password"}
                         onChange={(text)=>{setPassword(text)}}
-                        error = {""}
+                        error = {errorPassword}
                         isSecure={true}
                     />
                        <InputForm
                         label={"confirm password"}
                         onChange={(text)=>{setConfirmPassword(text)}}
-                        error = {""}
+                        error = {errorConfirmPassword}
                         isSecure={true}
                     />
                     <Button

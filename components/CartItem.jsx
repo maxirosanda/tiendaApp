@@ -2,7 +2,7 @@ import {View,Text,StyleSheet,Button} from "react-native"
 
 
 const CartItem = ({item,onDelete}) => {
-    console.log("es itma" ,item)
+
     return <View style={styles.item}>
                 <View>
                     <Text style={styles.text}>{item.title}</Text>
