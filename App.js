@@ -1,11 +1,11 @@
-import BreadNavigator from "./navigation/BreadNavigator"
+import MainNavigator from "./navigation/MainNavigator"
 import  { store }  from './app/store'
 import { Provider } from 'react-redux'
 
 
 const App = () => {
   return    <Provider store={store}>
-               <BreadNavigator/>
+               <MainNavigator/>
             </Provider>
   
 }
