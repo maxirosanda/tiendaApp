@@ -16,7 +16,6 @@ const CategoriesScreen = ({navigation}) => {
         dispatch(fetchCategories())
     }, [dispatch])
 
-    const handlerShowCart = () => navigation.navigate("Cart")
     const handlerLogout = () => {
         dispatch(logout())
     }
@@ -33,7 +32,6 @@ const CategoriesScreen = ({navigation}) => {
                     renderItem={ data => <CategoryGridTitle item={data.item} onSelected={handlerSelectedCategory}/>}
                     numColumns={2}/>
                     <Button title="deslogiarme" onPress={handlerLogout}/>
-                    <ShowCart handlerShowCart={handlerShowCart}/>
             </View>
     
 }

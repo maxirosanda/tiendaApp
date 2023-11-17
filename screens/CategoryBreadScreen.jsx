@@ -35,7 +35,6 @@ const CategoryBreadScreen = ({navigation}) => {
                 keyExtractor={item =>item.id}
                 renderItem={(data)=> <BreadItem item={data.item} onSelectBread={handlerSeleted}/>}
               />
-              <ShowCart handlerShowCart={handlerShowCart}/>
            </View>
 }
 

@@ -1,8 +1,9 @@
 import { useEffect } from "react"
-import {View,Text,StyleSheet,FlatList} from "react-native"
+import {View,Text,StyleSheet,FlatList,Button} from "react-native"
 import CartItem from "../components/CartItem"
 import { useSelector,useDispatch } from "react-redux"
 import { fetchCart ,removeProductFromCart} from "../app/features/cart/cartApi"
+import { addOrder } from "../app/features/orders/ordersApi"
 
 const CarritoScreen = () => {
     const dispatch = useDispatch()
@@ -12,6 +13,9 @@ const CarritoScreen = () => {
         dispatch(fetchCart(2))
       }, [dispatch])
 
+      const handlerAddOrder = (userId = 2,order) => {
+        dispatch(addOrder({ userId: userId, order: order}));
+    }
       const handlerDeleteProducts = (userId = 2,productId) => {
         dispatch(removeProductFromCart({ userId: userId, productId: productId }));
     }
@@ -27,6 +31,7 @@ const CarritoScreen = () => {
                 <View style={styles.footer}>
                     <Text style={styles.text}>Total: $ {cartState.total}</Text>
                 </View>
+                <Button title="Comprar" onPress={()=>handlerAddOrder(2,{products:cartState.cart.products,total:cartState.total})}/>
             </View>
 }
 

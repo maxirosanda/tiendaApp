@@ -7,7 +7,8 @@ export const fetchCart = createAsyncThunk("carts/fetchCart", async (userId) => {
         throw new Error(`Error al obtener datos del carrito: ${response.status} - ${response.statusText}`);
       }
       const data = await response.json()
-      const cart = data.find(item => item.userId == userId)
+      const carts = Object.values(data)
+      const cart = carts.find(item => item.userId == userId)
       return cart
       
     } catch (error) {
@@ -70,12 +71,13 @@ export const addProductToCart = createAsyncThunk(
         throw new Error(`Error al obtener datos del carrito: ${response.status} - ${response.statusText}`);
       }
       const data = await response.json();
+      const keysArray = Object.keys(data);
+      const cartId = keysArray[0];
       const carts = Object.values(data);
 
       // Encuentra el carrito del usuario por su ID
       const cart = carts.find(item => item.userId === userId);
-      const index = carts.findIndex(item => item.userId === userId);
-      
+
       if (cart) {
         if (!cart.products) {
           cart.products = [];
@@ -92,7 +94,7 @@ export const addProductToCart = createAsyncThunk(
         cart.products.push(product);
       }
         // Realiza una solicitud para actualizar el carrito en la base de datos
-        const updateResponse = await fetch(`https://tiendaapp-a2628-default-rtdb.firebaseio.com/carts/${index}.json`, {
+        const updateResponse = await fetch(`https://tiendaapp-a2628-default-rtdb.firebaseio.com/carts/${cartId}.json`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

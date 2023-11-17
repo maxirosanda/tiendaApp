@@ -2,7 +2,6 @@ import {View,Text,StyleSheet,Button} from "react-native"
 
 
 const CartItem = ({item,onDelete}) => {
-
     return <View style={styles.item}>
                 <View>
                     <Text style={styles.text}>{item.title}</Text>
@@ -15,7 +14,7 @@ const CartItem = ({item,onDelete}) => {
                         <Text>Precio: $ {item.price}</Text>
                     </View>
                     <View>
-                        <Button title="borrar" onPress={()=>onDelete(2,item.id)}/>
+                        <Button title="borrar" onPress={()=>onDelete(3,item.id)}/>
                     </View>
                 </View>
            </View>

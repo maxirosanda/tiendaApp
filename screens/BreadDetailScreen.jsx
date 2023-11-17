@@ -8,7 +8,7 @@ const BreadDetailScreen = ({navigation}) => {
     const dispatch = useDispatch()
     const breadState = useSelector((state) => state.breads.selected)
 
-    const handlerAddProducts = (userId = 2,product) => {
+    const handlerAddProducts = (userId = 3,product) => {
         dispatch(addProductToCart({ userId: userId, product: product }));
         navigation.navigate("Cart")
     }
